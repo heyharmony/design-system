@@ -1,0 +1,53 @@
+{
+  "name": "@heyharmony/design-system",
+  "version": "0.1.0",
+  "description": "Design tokens (themes, variables, colors) extracted from the Figma Harmony-2026 file, exported as CSS custom properties, typed TypeScript, and JSON.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heyharmony/design-system.git"
+  },
+  "homepage": "https://github.com/heyharmony/design-system#readme",
+  "bugs": {
+    "url": "https://github.com/heyharmony/design-system/issues"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./css": "./dist/css/tokens.css",
+    "./tokens.json": "./dist/tokens.json"
+  },
+  "scripts": {
+    "extract": "node scripts/figma-export.js --help",
+    "tokens": "node scripts/figma-to-tokens.mjs",
+    "build:css": "node style-dictionary.config.mjs",
+    "build:ts": "tsup",
+    "build": "npm run tokens && npm run build:css && npm run build:ts",
+    "clean": "rm -rf dist build src/generated",
+    "prepare": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.3.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}
