@@ -10,7 +10,7 @@ Design tokens (themes, variables, colors) extracted from the Figma
 - **JSON** (`dist/tokens.json`) — resolved values per theme, for any tooling.
 
 There is a single `Theme` collection with **15 themes**: semantic tokens
-(`--surface-page`, `--text-primary`, `--tab-*`, `--composer-*`, …) across the
+(`--surface-page`, `--text-primary`, `--tab-*`, `--composer-*`, `--dropdown-*`, …) across the
 modes: `light` (default), `dark`, `white`, `black`, `doodles`, `ocean-light`,
 `ocean-dark`, `ayu-light`, `ayu-dark`, `berry-light`, `berry-dark`,
 `forest-light`, `forest-dark`, `sand-light`, `sand-dark`.
@@ -141,6 +141,12 @@ the returned JSON over `tokens/figma.raw.json`, then run `npm run build`.
 
 - Color values preserve Figma's exact hex (including 8-digit alpha such as
   `#ffffff66`).
-- Alias variables (e.g. `--tab-bg-active`, `--composer-background`) are emitted
-  as `var(--…)` references in CSS to stay DRY, and as resolved concrete values in
-  `tokens.json` / the TS API.
+- Alias variables (e.g. `--tab-bg-active`, `--composer-background`,
+  `--dropdown-bg`) are emitted as `var(--…)` references in CSS to stay DRY, and as
+  resolved concrete values in `tokens.json` / the TS API.
+- The `--dropdown-*` group themes dropdown/select menus: `--dropdown-bg`,
+  `--dropdown-border`, `--dropdown-option-bg-hover`,
+  `--dropdown-option-bg-selected`, `--dropdown-option-text`,
+  `--dropdown-option-text-selected`, `--dropdown-icon`. A matching **Dropdown**
+  component (closed trigger + open menu with Default/Hover/Selected options) is
+  published in the Figma file, bound to these variables.
