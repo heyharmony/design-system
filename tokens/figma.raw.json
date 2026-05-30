@@ -266,6 +266,60 @@
       }
     },
     {
+      "id": "VariableID:61:900",
+      "name": "surface/skeleton",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "values": {
+        "60:0": "#0000001f",
+        "60:1": "#ffffff1f",
+        "60:2": "#0000001f",
+        "60:3": "#ffffff1f",
+        "60:4": "#ffffff1f",
+        "60:5": "#0a3d661f",
+        "60:6": "#a6c8ff1f",
+        "60:7": "#5c33171f",
+        "60:8": "#ffb4541f",
+        "60:9": "#7a3d991f",
+        "60:10": "#d8a8ff1f",
+        "60:11": "#1f5c2e1f",
+        "60:12": "#9bd6a61f",
+        "60:13": "#5c3f1a1f",
+        "60:14": "#e8c8971f"
+      }
+    },
+    {
+      "id": "VariableID:61:901",
+      "name": "surface/skeleton-highlight",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "values": {
+        "60:0": "#0000003d",
+        "60:1": "#ffffff3d",
+        "60:2": "#0000003d",
+        "60:3": "#ffffff3d",
+        "60:4": "#ffffff3d",
+        "60:5": "#0a3d663d",
+        "60:6": "#a6c8ff3d",
+        "60:7": "#5c33173d",
+        "60:8": "#ffb4543d",
+        "60:9": "#7a3d993d",
+        "60:10": "#d8a8ff3d",
+        "60:11": "#1f5c2e3d",
+        "60:12": "#9bd6a63d",
+        "60:13": "#5c3f1a3d",
+        "60:14": "#e8c8973d"
+      }
+    },
+    {
       "id": "VariableID:62:250",
       "name": "text/primary",
       "type": "COLOR",
