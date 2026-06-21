@@ -86,7 +86,7 @@
         "SHAPE_FILL"
       ],
       "values": {
-        "60:0": "#fafafa",
+        "60:0": "#ffffff",
         "60:1": "#212121",
         "60:2": "#ffffff",
         "60:3": "#101213",
@@ -113,7 +113,7 @@
         "SHAPE_FILL"
       ],
       "values": {
-        "60:0": "#f5f5f5",
+        "60:0": "#ffffff",
         "60:1": "#252525",
         "60:2": "#ffffff",
         "60:3": "#101213",
@@ -142,8 +142,8 @@
       "values": {
         "60:0": "#f5f5f5",
         "60:1": "#252525",
-        "60:2": "#ffffff",
-        "60:3": "#101011",
+        "60:2": "#f5f5f5",
+        "60:3": "#101213",
         "60:4": "#131111",
         "60:5": "#e8eef5",
         "60:6": "#081420",
@@ -170,7 +170,7 @@
         "60:0": "#ffffff",
         "60:1": "#2c2c2c",
         "60:2": "#fafafa",
-        "60:3": "#0a0a0b",
+        "60:3": "#131516",
         "60:4": "#1e1c1b",
         "60:5": "#ffffff",
         "60:6": "#14202e",
@@ -263,60 +263,6 @@
         "60:12": "#9bd6a626",
         "60:13": "#5c3f1a26",
         "60:14": "#e8c89726"
-      }
-    },
-    {
-      "id": "VariableID:61:900",
-      "name": "surface/skeleton",
-      "type": "COLOR",
-      "c": "VariableCollectionId:60:249",
-      "scopes": [
-        "FRAME_FILL",
-        "SHAPE_FILL"
-      ],
-      "values": {
-        "60:0": "#0000001f",
-        "60:1": "#ffffff1f",
-        "60:2": "#0000001f",
-        "60:3": "#ffffff1f",
-        "60:4": "#ffffff1f",
-        "60:5": "#0a3d661f",
-        "60:6": "#a6c8ff1f",
-        "60:7": "#5c33171f",
-        "60:8": "#ffb4541f",
-        "60:9": "#7a3d991f",
-        "60:10": "#d8a8ff1f",
-        "60:11": "#1f5c2e1f",
-        "60:12": "#9bd6a61f",
-        "60:13": "#5c3f1a1f",
-        "60:14": "#e8c8971f"
-      }
-    },
-    {
-      "id": "VariableID:61:901",
-      "name": "surface/skeleton-highlight",
-      "type": "COLOR",
-      "c": "VariableCollectionId:60:249",
-      "scopes": [
-        "FRAME_FILL",
-        "SHAPE_FILL"
-      ],
-      "values": {
-        "60:0": "#0000003d",
-        "60:1": "#ffffff3d",
-        "60:2": "#0000003d",
-        "60:3": "#ffffff3d",
-        "60:4": "#ffffff3d",
-        "60:5": "#0a3d663d",
-        "60:6": "#a6c8ff3d",
-        "60:7": "#5c33173d",
-        "60:8": "#ffb4543d",
-        "60:9": "#7a3d993d",
-        "60:10": "#d8a8ff3d",
-        "60:11": "#1f5c2e3d",
-        "60:12": "#9bd6a63d",
-        "60:13": "#5c3f1a3d",
-        "60:14": "#e8c8973d"
       }
     },
     {
@@ -1290,10 +1236,51 @@
         "SHAPE_FILL"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "surface/input",
           "ac": "VariableCollectionId:60:249"
-        }
+        },
+        "60:1": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "surface/input",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
       }
     },
     {
@@ -1305,10 +1292,51 @@
         "STROKE_COLOR"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "border/default",
           "ac": "VariableCollectionId:60:249"
-        }
+        },
+        "60:1": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "border/default",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
       }
     },
     {
@@ -1321,10 +1349,51 @@
         "SHAPE_FILL"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "surface/chip-hover",
           "ac": "VariableCollectionId:60:249"
-        }
+        },
+        "60:1": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "surface/chip-hover",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
       }
     },
     {
@@ -1337,10 +1406,51 @@
         "SHAPE_FILL"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "surface/chip-strong",
           "ac": "VariableCollectionId:60:249"
-        }
+        },
+        "60:1": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "surface/chip-strong",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
       }
     },
     {
@@ -1352,10 +1462,51 @@
         "TEXT_FILL"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "text/secondary",
           "ac": "VariableCollectionId:60:249"
-        }
+        },
+        "60:1": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "text/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
       }
     },
     {
@@ -1367,10 +1518,51 @@
         "TEXT_FILL"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "text/primary",
           "ac": "VariableCollectionId:60:249"
-        }
+        },
+        "60:1": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "text/primary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
       }
     },
     {
@@ -1384,8 +1576,174 @@
         "TEXT_FILL"
       ],
       "values": {
-        "*": {
+        "60:0": {
           "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:1": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:2": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:3": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:4": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:5": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:6": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:7": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:8": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:9": {
+          "a": "icon/secondary",
+          "ac": "VariableCollectionId:60:249"
+        },
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
+      }
+    },
+    {
+      "id": "VariableID:425:4398",
+      "name": "surface/skeleton",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "values": {
+        "60:0": "#0000001f",
+        "60:1": "#ffffff1f",
+        "60:2": "#0000001f",
+        "60:3": "#ffffff1f",
+        "60:4": "#ffffff1f",
+        "60:5": "#0a3d661f",
+        "60:6": "#a6c8ff1f",
+        "60:7": "#5c33171f",
+        "60:8": "#ffb4541f",
+        "60:9": "#7a3d991f",
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
+      }
+    },
+    {
+      "id": "VariableID:425:4399",
+      "name": "surface/skeleton-highlight",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "values": {
+        "60:0": "#0000003d",
+        "60:1": "#ffffff3d",
+        "60:2": "#0000003d",
+        "60:3": "#ffffff3d",
+        "60:4": "#ffffff3d",
+        "60:5": "#0a3d663d",
+        "60:6": "#a6c8ff3d",
+        "60:7": "#5c33173d",
+        "60:8": "#ffb4543d",
+        "60:9": "#7a3d993d",
+        "60:10": "#ffffff",
+        "60:11": "#ffffff",
+        "60:12": "#ffffff",
+        "60:13": "#ffffff",
+        "60:14": "#ffffff"
+      }
+    },
+    {
+      "id": "VariableID:900:0001",
+      "name": "border/focus",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "values": {
+        "60:0": "#2f6feb",
+        "60:1": "#5c9dff",
+        "60:2": "#2f6feb",
+        "60:3": "#5c9dff",
+        "60:4": "#5c9dff",
+        "60:5": "#0a6fb3",
+        "60:6": "#6fb6ff",
+        "60:7": "#e6932b",
+        "60:8": "#ffb454",
+        "60:9": "#9b4dca",
+        "60:10": "#c98fff",
+        "60:11": "#2f8f4e",
+        "60:12": "#7fcf95",
+        "60:13": "#b07d3a",
+        "60:14": "#e0b87a"
+      }
+    },
+    {
+      "id": "VariableID:900:0002",
+      "name": "composer/border-focus",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "values": {
+        "*": {
+          "a": "border/focus",
+          "ac": "VariableCollectionId:60:249"
+        }
+      }
+    },
+    {
+      "id": "VariableID:900:0003",
+      "name": "dropdown/border-focus",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "values": {
+        "*": {
+          "a": "border/focus",
+          "ac": "VariableCollectionId:60:249"
+        }
+      }
+    },
+    {
+      "id": "VariableID:900:0004",
+      "name": "input/border-focus",
+      "type": "COLOR",
+      "c": "VariableCollectionId:60:249",
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "values": {
+        "*": {
+          "a": "border/focus",
           "ac": "VariableCollectionId:60:249"
         }
       }
