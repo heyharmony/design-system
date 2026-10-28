@@ -1,0 +1,86 @@
+name: Build dist
+
+# Publishes the built package to the `dist` branch, so consumers can install
+# it from git without running lifecycle scripts:
+#
+#   npm install github:heyharmony/design-system#dist
+#
+# npm 11 skips a git dependency's `prepare` script under --ignore-scripts,
+# which leaves an install from `main` without `dist/`.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit, branch or tag to build (defaults to the selected branch)
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist
+  cancel-in-progress: false
+
+jobs:
+  dist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Install Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Publish to dist branch
+        run: |
+          SOURCE_SHA=$(git rev-parse HEAD)
+          OUT="$RUNNER_TEMP/dist-branch"
+
+          if git fetch --depth=1 origin dist; then
+            git worktree add --detach "$OUT" FETCH_HEAD
+          else
+            git worktree add --detach "$OUT"
+            git -C "$OUT" checkout --orphan dist
+          fi
+
+          find "$OUT" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R dist README.md LICENSE "$OUT"/
+          # No scripts: the package is already built, and `prepare` would try
+          # to rebuild it from sources that are not on this branch.
+          node -e '
+            const pkg = require("./package.json");
+            delete pkg.scripts;
+            delete pkg.devDependencies;
+            require("fs").writeFileSync(process.argv[1] + "/package.json", JSON.stringify(pkg, null, 2) + "\n");
+          ' "$OUT"
+
+          cd "$OUT"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "dist is already up to date"
+            exit 0
+          fi
+          git commit -q -m "Build from $SOURCE_SHA"
+          git push origin HEAD:refs/heads/dist
