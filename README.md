@@ -30,6 +30,14 @@ Pin to a specific tag/branch/commit if you want a stable version:
 pnpm add github:heyharmony/design-system#v0.1.0
 ```
 
+If you install with lifecycle scripts disabled (`--ignore-scripts`, which npm 11
+also applies to git dependencies), use the prebuilt `dist` branch instead. CI
+rebuilds it on every push to `main`:
+
+```bash
+npm install github:heyharmony/design-system#dist
+```
+
 ## Usage in a React / TypeScript app
 
 ### 1. Load the CSS once (e.g. in your app entry)
