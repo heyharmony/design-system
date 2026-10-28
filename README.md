@@ -30,14 +30,6 @@ Pin to a specific tag/branch/commit if you want a stable version:
 pnpm add github:heyharmony/design-system#v0.1.0
 ```
 
-If you install with lifecycle scripts disabled (`--ignore-scripts`, which npm 11
-also applies to git dependencies), use the prebuilt `dist` branch instead. CI
-rebuilds it on every push to `main`:
-
-```bash
-npm install github:heyharmony/design-system#dist
-```
-
 ## Usage in a React / TypeScript app
 
 ### 1. Load the CSS once (e.g. in your app entry)
@@ -61,18 +53,6 @@ theme, so the variables work immediately.
 .tab--active {
   background: var(--tab-bg-active);
   color: var(--tab-text-active);
-}
-```
-
-Focus state for inputs is driven by the per-component focus tokens
-(`--input-border-focus`, `--composer-border-focus`, `--dropdown-border-focus`),
-which all alias the foundation accent `--border-focus`. Width and offset stay in
-app CSS (tokens are color-only):
-
-```css
-.input:focus-visible {
-  outline: 2px solid var(--input-border-focus);
-  outline-offset: 1px;
 }
 ```
 
@@ -157,13 +137,6 @@ variables change, re-run the exporter snippet in
 file (fileKey `AA8bwpQKSB21xbeNgDR8wu`) via the Figma MCP `use_figma` tool, save
 the returned JSON over `tokens/figma.raw.json`, then run `npm run build`.
 
-The focus border tokens (`border/focus` + `*/border-focus`) currently live only
-in `tokens/figma.raw.json` — they could not be written to Figma because the
-Theme collection has 15 modes and the editing account's plan caps mode edits at
-10. Until they are re-created in Figma (from an account whose plan allows editing
-all 15 modes), a re-export will drop them and they must be re-added to the
-snapshot.
-
 ## Notes
 
 - Color values preserve Figma's exact hex (including 8-digit alpha such as
@@ -177,7 +150,3 @@ snapshot.
   `--dropdown-option-text-selected`, `--dropdown-icon`. A matching **Dropdown**
   component (closed trigger + open menu with Default/Hover/Selected options) is
   published in the Figma file, bound to these variables.
-- Focus borders use an accent color: `--border-focus` is the foundation accent
-  (per theme), and `--composer-border-focus`, `--dropdown-border-focus`,
-  `--input-border-focus` alias it. Apply on `:focus-visible`; the ring width and
-  offset live in app CSS since tokens are color-only.

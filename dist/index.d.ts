@@ -49,16 +49,16 @@ type ThemeSlug = Theme["slug"];
 declare const defaultTheme: ThemeSlug;
 declare const themeVars: {
     readonly light: {
-        readonly "--surface-page": "#ffffff";
-        readonly "--surface-canvas": "#ffffff";
+        readonly "--surface-page": "#fafafa";
+        readonly "--surface-canvas": "#f5f5f5";
         readonly "--surface-sidebar": "#f5f5f5";
         readonly "--surface-input": "#ffffff";
         readonly "--surface-chip": "#0000000f";
         readonly "--surface-chip-subtle": "#0000000a";
         readonly "--surface-chip-strong": "#00000026";
-        readonly "--surface-chip-hover": "#0000001a";
         readonly "--surface-skeleton": "#0000001f";
         readonly "--surface-skeleton-highlight": "#0000003d";
+        readonly "--surface-chip-hover": "#0000001a";
         readonly "--text-primary": "#0a0a0a";
         readonly "--text-secondary": "#3a3a3a";
         readonly "--text-tertiary": "#6b6b6b";
@@ -69,10 +69,9 @@ declare const themeVars: {
         readonly "--border-default": "#00000014";
         readonly "--border-strong": "#00000040";
         readonly "--border-frame": "#e0e0e0";
-        readonly "--border-focus": "#2f6feb";
         readonly "--icon-primary": "#171717";
         readonly "--icon-secondary": "#666666";
-        readonly "--tab-bg-active": "#ffffff";
+        readonly "--tab-bg-active": "#fafafa";
         readonly "--tab-bg-active-hover": "#ffffff";
         readonly "--tab-bg-inactive-hover": "#0000000f";
         readonly "--tab-border-active": "#00000014";
@@ -81,7 +80,7 @@ declare const themeVars: {
         readonly "--tab-text-inactive": "#6b6b6b";
         readonly "--tab-text-inactive-hover": "#3a3a3a";
         readonly "--tab-icon": "#666666";
-        readonly "--tab-bar-bg": "#ffffff";
+        readonly "--tab-bar-bg": "#f5f5f5";
         readonly "--tab-bar-border": "#0000001a";
         readonly "--composer-background": "#ffffff";
         readonly "--composer-border": "#0000001a";
@@ -91,7 +90,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#3a3a3a";
         readonly "--composer-send-background": "#00000026";
         readonly "--composer-send-icon": "#171717";
-        readonly "--composer-border-focus": "#2f6feb";
         readonly "--dropdown-bg": "#ffffff";
         readonly "--dropdown-border": "#00000014";
         readonly "--dropdown-option-bg-hover": "#0000001a";
@@ -99,8 +97,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#3a3a3a";
         readonly "--dropdown-option-text-selected": "#0a0a0a";
         readonly "--dropdown-icon": "#666666";
-        readonly "--dropdown-border-focus": "#2f6feb";
-        readonly "--input-border-focus": "#2f6feb";
     };
     readonly dark: {
         readonly "--surface-page": "#212121";
@@ -110,9 +106,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#ffffff0f";
         readonly "--surface-chip-subtle": "#ffffff0d";
         readonly "--surface-chip-strong": "#ffffff26";
-        readonly "--surface-chip-hover": "#ffffff38";
         readonly "--surface-skeleton": "#ffffff1f";
         readonly "--surface-skeleton-highlight": "#ffffff3d";
+        readonly "--surface-chip-hover": "#ffffff38";
         readonly "--text-primary": "#ffffff";
         readonly "--text-secondary": "#ffffffc7";
         readonly "--text-tertiary": "#ffffff8c";
@@ -123,7 +119,6 @@ declare const themeVars: {
         readonly "--border-default": "#ffffff14";
         readonly "--border-strong": "#ffffff40";
         readonly "--border-frame": "#3c3c3c";
-        readonly "--border-focus": "#5c9dff";
         readonly "--icon-primary": "#ffffff";
         readonly "--icon-secondary": "#ffffffa6";
         readonly "--tab-bg-active": "#212121";
@@ -145,7 +140,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#ffffffc7";
         readonly "--composer-send-background": "#ffffff26";
         readonly "--composer-send-icon": "#ffffff";
-        readonly "--composer-border-focus": "#5c9dff";
         readonly "--dropdown-bg": "#2c2c2c";
         readonly "--dropdown-border": "#ffffff14";
         readonly "--dropdown-option-bg-hover": "#ffffff38";
@@ -153,20 +147,18 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#ffffffc7";
         readonly "--dropdown-option-text-selected": "#ffffff";
         readonly "--dropdown-icon": "#ffffffa6";
-        readonly "--dropdown-border-focus": "#5c9dff";
-        readonly "--input-border-focus": "#5c9dff";
     };
     readonly white: {
         readonly "--surface-page": "#ffffff";
         readonly "--surface-canvas": "#ffffff";
-        readonly "--surface-sidebar": "#f5f5f5";
+        readonly "--surface-sidebar": "#ffffff";
         readonly "--surface-input": "#fafafa";
         readonly "--surface-chip": "#0000000a";
         readonly "--surface-chip-subtle": "#00000005";
         readonly "--surface-chip-strong": "#0000001a";
-        readonly "--surface-chip-hover": "#00000014";
         readonly "--surface-skeleton": "#0000001f";
         readonly "--surface-skeleton-highlight": "#0000003d";
+        readonly "--surface-chip-hover": "#00000014";
         readonly "--text-primary": "#000000";
         readonly "--text-secondary": "#2a2a2a";
         readonly "--text-tertiary": "#5a5a5a";
@@ -177,7 +169,6 @@ declare const themeVars: {
         readonly "--border-default": "#00000014";
         readonly "--border-strong": "#00000033";
         readonly "--border-frame": "#dddddd";
-        readonly "--border-focus": "#2f6feb";
         readonly "--icon-primary": "#000000";
         readonly "--icon-secondary": "#555555";
         readonly "--tab-bg-active": "#ffffff";
@@ -199,7 +190,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#2a2a2a";
         readonly "--composer-send-background": "#0000001a";
         readonly "--composer-send-icon": "#000000";
-        readonly "--composer-border-focus": "#2f6feb";
         readonly "--dropdown-bg": "#fafafa";
         readonly "--dropdown-border": "#00000014";
         readonly "--dropdown-option-bg-hover": "#00000014";
@@ -207,20 +197,18 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#2a2a2a";
         readonly "--dropdown-option-text-selected": "#000000";
         readonly "--dropdown-icon": "#555555";
-        readonly "--dropdown-border-focus": "#2f6feb";
-        readonly "--input-border-focus": "#2f6feb";
     };
     readonly black: {
         readonly "--surface-page": "#101213";
         readonly "--surface-canvas": "#101213";
-        readonly "--surface-sidebar": "#101213";
-        readonly "--surface-input": "#131516";
+        readonly "--surface-sidebar": "#101011";
+        readonly "--surface-input": "#0a0a0b";
         readonly "--surface-chip": "#ffffff14";
         readonly "--surface-chip-subtle": "#ffffff0d";
         readonly "--surface-chip-strong": "#ffffff33";
-        readonly "--surface-chip-hover": "#ffffff47";
         readonly "--surface-skeleton": "#ffffff1f";
         readonly "--surface-skeleton-highlight": "#ffffff3d";
+        readonly "--surface-chip-hover": "#ffffff47";
         readonly "--text-primary": "#ffffff";
         readonly "--text-secondary": "#ffffffd9";
         readonly "--text-tertiary": "#ffffff99";
@@ -231,11 +219,10 @@ declare const themeVars: {
         readonly "--border-default": "#ffffff1f";
         readonly "--border-strong": "#ffffff4d";
         readonly "--border-frame": "#000000";
-        readonly "--border-focus": "#5c9dff";
         readonly "--icon-primary": "#ffffff";
         readonly "--icon-secondary": "#ffffffb2";
         readonly "--tab-bg-active": "#101213";
-        readonly "--tab-bg-active-hover": "#131516";
+        readonly "--tab-bg-active-hover": "#0a0a0b";
         readonly "--tab-bg-inactive-hover": "#ffffff14";
         readonly "--tab-border-active": "#ffffff1f";
         readonly "--tab-border-active-hover": "#ffffff4d";
@@ -245,7 +232,7 @@ declare const themeVars: {
         readonly "--tab-icon": "#ffffffb2";
         readonly "--tab-bar-bg": "#101213";
         readonly "--tab-bar-border": "#ffffff14";
-        readonly "--composer-background": "#131516";
+        readonly "--composer-background": "#0a0a0b";
         readonly "--composer-border": "#ffffff14";
         readonly "--composer-placeholder": "#ffffff66";
         readonly "--composer-action-icon": "#ffffff99";
@@ -253,16 +240,13 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#ffffffd9";
         readonly "--composer-send-background": "#ffffff33";
         readonly "--composer-send-icon": "#ffffff";
-        readonly "--composer-border-focus": "#5c9dff";
-        readonly "--dropdown-bg": "#131516";
+        readonly "--dropdown-bg": "#0a0a0b";
         readonly "--dropdown-border": "#ffffff1f";
         readonly "--dropdown-option-bg-hover": "#ffffff47";
         readonly "--dropdown-option-bg-selected": "#ffffff33";
         readonly "--dropdown-option-text": "#ffffffd9";
         readonly "--dropdown-option-text-selected": "#ffffff";
         readonly "--dropdown-icon": "#ffffffb2";
-        readonly "--dropdown-border-focus": "#5c9dff";
-        readonly "--input-border-focus": "#5c9dff";
     };
     readonly doodles: {
         readonly "--surface-page": "#1a1716";
@@ -272,9 +256,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#ffffff0f";
         readonly "--surface-chip-subtle": "#ffffff0d";
         readonly "--surface-chip-strong": "#ffffff26";
-        readonly "--surface-chip-hover": "#ffffff38";
         readonly "--surface-skeleton": "#ffffff1f";
         readonly "--surface-skeleton-highlight": "#ffffff3d";
+        readonly "--surface-chip-hover": "#ffffff38";
         readonly "--text-primary": "#f5f0eb";
         readonly "--text-secondary": "#f5f0ebc7";
         readonly "--text-tertiary": "#f5f0eb8c";
@@ -285,7 +269,6 @@ declare const themeVars: {
         readonly "--border-default": "#ffffff14";
         readonly "--border-strong": "#ffffff40";
         readonly "--border-frame": "#0e0c0a";
-        readonly "--border-focus": "#5c9dff";
         readonly "--icon-primary": "#f5f0eb";
         readonly "--icon-secondary": "#f5f0eba6";
         readonly "--tab-bg-active": "#1a1716";
@@ -307,7 +290,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#f5f0ebc7";
         readonly "--composer-send-background": "#ffffff26";
         readonly "--composer-send-icon": "#f5f0eb";
-        readonly "--composer-border-focus": "#5c9dff";
         readonly "--dropdown-bg": "#1e1c1b";
         readonly "--dropdown-border": "#ffffff14";
         readonly "--dropdown-option-bg-hover": "#ffffff38";
@@ -315,8 +297,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#f5f0ebc7";
         readonly "--dropdown-option-text-selected": "#f5f0eb";
         readonly "--dropdown-icon": "#f5f0eba6";
-        readonly "--dropdown-border-focus": "#5c9dff";
-        readonly "--input-border-focus": "#5c9dff";
     };
     readonly "ocean-light": {
         readonly "--surface-page": "#f4f7fa";
@@ -326,9 +306,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#0a3d660f";
         readonly "--surface-chip-subtle": "#0a3d660a";
         readonly "--surface-chip-strong": "#0a3d6626";
-        readonly "--surface-chip-hover": "#0a3d661a";
         readonly "--surface-skeleton": "#0a3d661f";
         readonly "--surface-skeleton-highlight": "#0a3d663d";
+        readonly "--surface-chip-hover": "#0a3d661a";
         readonly "--text-primary": "#0a1a2e";
         readonly "--text-secondary": "#1f3a5c";
         readonly "--text-tertiary": "#4a6584";
@@ -339,7 +319,6 @@ declare const themeVars: {
         readonly "--border-default": "#0a3d661a";
         readonly "--border-strong": "#0a3d664d";
         readonly "--border-frame": "#d3dce8";
-        readonly "--border-focus": "#0a6fb3";
         readonly "--icon-primary": "#0a1a2e";
         readonly "--icon-secondary": "#3a587a";
         readonly "--tab-bg-active": "#f4f7fa";
@@ -361,7 +340,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#1f3a5c";
         readonly "--composer-send-background": "#0a3d6626";
         readonly "--composer-send-icon": "#0a1a2e";
-        readonly "--composer-border-focus": "#0a6fb3";
         readonly "--dropdown-bg": "#ffffff";
         readonly "--dropdown-border": "#0a3d661a";
         readonly "--dropdown-option-bg-hover": "#0a3d661a";
@@ -369,8 +347,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#1f3a5c";
         readonly "--dropdown-option-text-selected": "#0a1a2e";
         readonly "--dropdown-icon": "#3a587a";
-        readonly "--dropdown-border-focus": "#0a6fb3";
-        readonly "--input-border-focus": "#0a6fb3";
     };
     readonly "ocean-dark": {
         readonly "--surface-page": "#0c1824";
@@ -380,9 +356,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#a6c8ff0f";
         readonly "--surface-chip-subtle": "#a6c8ff0d";
         readonly "--surface-chip-strong": "#a6c8ff26";
-        readonly "--surface-chip-hover": "#a6c8ff38";
         readonly "--surface-skeleton": "#a6c8ff1f";
         readonly "--surface-skeleton-highlight": "#a6c8ff3d";
+        readonly "--surface-chip-hover": "#a6c8ff38";
         readonly "--text-primary": "#e6f0fa";
         readonly "--text-secondary": "#b8d4ec";
         readonly "--text-tertiary": "#8aa8c4";
@@ -393,7 +369,6 @@ declare const themeVars: {
         readonly "--border-default": "#a6c8ff1a";
         readonly "--border-strong": "#a6c8ff40";
         readonly "--border-frame": "#040c16";
-        readonly "--border-focus": "#6fb6ff";
         readonly "--icon-primary": "#e6f0fa";
         readonly "--icon-secondary": "#9ab8d2";
         readonly "--tab-bg-active": "#0c1824";
@@ -415,7 +390,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#b8d4ec";
         readonly "--composer-send-background": "#a6c8ff26";
         readonly "--composer-send-icon": "#e6f0fa";
-        readonly "--composer-border-focus": "#6fb6ff";
         readonly "--dropdown-bg": "#14202e";
         readonly "--dropdown-border": "#a6c8ff1a";
         readonly "--dropdown-option-bg-hover": "#a6c8ff38";
@@ -423,8 +397,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#b8d4ec";
         readonly "--dropdown-option-text-selected": "#e6f0fa";
         readonly "--dropdown-icon": "#9ab8d2";
-        readonly "--dropdown-border-focus": "#6fb6ff";
-        readonly "--input-border-focus": "#6fb6ff";
     };
     readonly "ayu-light": {
         readonly "--surface-page": "#fafaf3";
@@ -434,9 +406,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#5c33170d";
         readonly "--surface-chip-subtle": "#5c33170a";
         readonly "--surface-chip-strong": "#5c331724";
-        readonly "--surface-chip-hover": "#5c33171a";
         readonly "--surface-skeleton": "#5c33171f";
         readonly "--surface-skeleton-highlight": "#5c33173d";
+        readonly "--surface-chip-hover": "#5c33171a";
         readonly "--text-primary": "#1a1817";
         readonly "--text-secondary": "#3a342a";
         readonly "--text-tertiary": "#6a6052";
@@ -447,7 +419,6 @@ declare const themeVars: {
         readonly "--border-default": "#5c33171a";
         readonly "--border-strong": "#5c331740";
         readonly "--border-frame": "#e0e0d8";
-        readonly "--border-focus": "#e6932b";
         readonly "--icon-primary": "#1a1817";
         readonly "--icon-secondary": "#5c5347";
         readonly "--tab-bg-active": "#fafaf3";
@@ -469,7 +440,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#3a342a";
         readonly "--composer-send-background": "#5c331724";
         readonly "--composer-send-icon": "#1a1817";
-        readonly "--composer-border-focus": "#e6932b";
         readonly "--dropdown-bg": "#ffffff";
         readonly "--dropdown-border": "#5c33171a";
         readonly "--dropdown-option-bg-hover": "#5c33171a";
@@ -477,8 +447,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#3a342a";
         readonly "--dropdown-option-text-selected": "#1a1817";
         readonly "--dropdown-icon": "#5c5347";
-        readonly "--dropdown-border-focus": "#e6932b";
-        readonly "--input-border-focus": "#e6932b";
     };
     readonly "ayu-dark": {
         readonly "--surface-page": "#0f1419";
@@ -488,9 +456,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#ffb4540d";
         readonly "--surface-chip-subtle": "#ffb4540a";
         readonly "--surface-chip-strong": "#ffb45424";
-        readonly "--surface-chip-hover": "#ffb45433";
         readonly "--surface-skeleton": "#ffb4541f";
         readonly "--surface-skeleton-highlight": "#ffb4543d";
+        readonly "--surface-chip-hover": "#ffb45433";
         readonly "--text-primary": "#e6e1cf";
         readonly "--text-secondary": "#c4baa0";
         readonly "--text-tertiary": "#988e7a";
@@ -501,7 +469,6 @@ declare const themeVars: {
         readonly "--border-default": "#ffb4541a";
         readonly "--border-strong": "#ffb45440";
         readonly "--border-frame": "#06080c";
-        readonly "--border-focus": "#ffb454";
         readonly "--icon-primary": "#ffb454";
         readonly "--icon-secondary": "#a89878";
         readonly "--tab-bg-active": "#0f1419";
@@ -523,7 +490,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#c4baa0";
         readonly "--composer-send-background": "#ffb45424";
         readonly "--composer-send-icon": "#ffb454";
-        readonly "--composer-border-focus": "#ffb454";
         readonly "--dropdown-bg": "#171b25";
         readonly "--dropdown-border": "#ffb4541a";
         readonly "--dropdown-option-bg-hover": "#ffb45433";
@@ -531,8 +497,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#c4baa0";
         readonly "--dropdown-option-text-selected": "#e6e1cf";
         readonly "--dropdown-icon": "#a89878";
-        readonly "--dropdown-border-focus": "#ffb454";
-        readonly "--input-border-focus": "#ffb454";
     };
     readonly "berry-light": {
         readonly "--surface-page": "#faf6fb";
@@ -542,9 +506,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#7a3d990f";
         readonly "--surface-chip-subtle": "#7a3d990a";
         readonly "--surface-chip-strong": "#7a3d9926";
-        readonly "--surface-chip-hover": "#7a3d991a";
         readonly "--surface-skeleton": "#7a3d991f";
         readonly "--surface-skeleton-highlight": "#7a3d993d";
+        readonly "--surface-chip-hover": "#7a3d991a";
         readonly "--text-primary": "#1f1224";
         readonly "--text-secondary": "#3d2944";
         readonly "--text-tertiary": "#6b5476";
@@ -555,7 +519,6 @@ declare const themeVars: {
         readonly "--border-default": "#7a3d991a";
         readonly "--border-strong": "#7a3d9940";
         readonly "--border-frame": "#e2dce8";
-        readonly "--border-focus": "#9b4dca";
         readonly "--icon-primary": "#1f1224";
         readonly "--icon-secondary": "#5e4868";
         readonly "--tab-bg-active": "#faf6fb";
@@ -577,7 +540,6 @@ declare const themeVars: {
         readonly "--composer-chip-label": "#3d2944";
         readonly "--composer-send-background": "#7a3d9926";
         readonly "--composer-send-icon": "#1f1224";
-        readonly "--composer-border-focus": "#9b4dca";
         readonly "--dropdown-bg": "#ffffff";
         readonly "--dropdown-border": "#7a3d991a";
         readonly "--dropdown-option-bg-hover": "#7a3d991a";
@@ -585,8 +547,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#3d2944";
         readonly "--dropdown-option-text-selected": "#1f1224";
         readonly "--dropdown-icon": "#5e4868";
-        readonly "--dropdown-border-focus": "#9b4dca";
-        readonly "--input-border-focus": "#9b4dca";
     };
     readonly "berry-dark": {
         readonly "--surface-page": "#1a0f24";
@@ -596,9 +556,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#d8a8ff0f";
         readonly "--surface-chip-subtle": "#d8a8ff0d";
         readonly "--surface-chip-strong": "#d8a8ff26";
+        readonly "--surface-skeleton": "#d8a8ff1f";
+        readonly "--surface-skeleton-highlight": "#d8a8ff3d";
         readonly "--surface-chip-hover": "#d8a8ff38";
-        readonly "--surface-skeleton": "#ffffff1f";
-        readonly "--surface-skeleton-highlight": "#ffffff3d";
         readonly "--text-primary": "#f0e6f7";
         readonly "--text-secondary": "#d4b8e0";
         readonly "--text-tertiary": "#a890b8";
@@ -609,7 +569,6 @@ declare const themeVars: {
         readonly "--border-default": "#d8a8ff1a";
         readonly "--border-strong": "#d8a8ff40";
         readonly "--border-frame": "#ffffff";
-        readonly "--border-focus": "#c98fff";
         readonly "--icon-primary": "#f0e6f7";
         readonly "--icon-secondary": "#bda0d0";
         readonly "--tab-bg-active": "#1a0f24";
@@ -623,15 +582,14 @@ declare const themeVars: {
         readonly "--tab-icon": "#bda0d0";
         readonly "--tab-bar-bg": "#1e1129";
         readonly "--tab-bar-border": "#d8a8ff0d";
-        readonly "--composer-background": "#22152e";
-        readonly "--composer-border": "#d8a8ff0d";
-        readonly "--composer-placeholder": "#7d6889";
-        readonly "--composer-action-icon": "#a890b8";
-        readonly "--composer-chip-background": "#d8a8ff0f";
-        readonly "--composer-chip-label": "#d4b8e0";
-        readonly "--composer-send-background": "#d8a8ff26";
-        readonly "--composer-send-icon": "#f0e6f7";
-        readonly "--composer-border-focus": "#c98fff";
+        readonly "--composer-background": "#ffffff";
+        readonly "--composer-border": "#ffffff";
+        readonly "--composer-placeholder": "#ffffff";
+        readonly "--composer-action-icon": "#ffffff";
+        readonly "--composer-chip-background": "#ffffff";
+        readonly "--composer-chip-label": "#ffffff";
+        readonly "--composer-send-background": "#ffffff";
+        readonly "--composer-send-icon": "#ffffff";
         readonly "--dropdown-bg": "#22152e";
         readonly "--dropdown-border": "#d8a8ff1a";
         readonly "--dropdown-option-bg-hover": "#d8a8ff38";
@@ -639,8 +597,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#d4b8e0";
         readonly "--dropdown-option-text-selected": "#f0e6f7";
         readonly "--dropdown-icon": "#bda0d0";
-        readonly "--dropdown-border-focus": "#c98fff";
-        readonly "--input-border-focus": "#c98fff";
     };
     readonly "forest-light": {
         readonly "--surface-page": "#f6faf6";
@@ -650,9 +606,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#1f5c2e0d";
         readonly "--surface-chip-subtle": "#1f5c2e0a";
         readonly "--surface-chip-strong": "#1f5c2e24";
+        readonly "--surface-skeleton": "#1f5c2e1f";
+        readonly "--surface-skeleton-highlight": "#1f5c2e3d";
         readonly "--surface-chip-hover": "#1f5c2e1a";
-        readonly "--surface-skeleton": "#0000001f";
-        readonly "--surface-skeleton-highlight": "#0000003d";
         readonly "--text-primary": "#0d1f12";
         readonly "--text-secondary": "#244e30";
         readonly "--text-tertiary": "#4e6e56";
@@ -663,7 +619,6 @@ declare const themeVars: {
         readonly "--border-default": "#1f5c2e1a";
         readonly "--border-strong": "#1f5c2e40";
         readonly "--border-frame": "#ffffff";
-        readonly "--border-focus": "#2f8f4e";
         readonly "--icon-primary": "#0d1f12";
         readonly "--icon-secondary": "#3e5e46";
         readonly "--tab-bg-active": "#f6faf6";
@@ -678,14 +633,13 @@ declare const themeVars: {
         readonly "--tab-bar-bg": "#f6faf6";
         readonly "--tab-bar-border": "#1f5c2e0d";
         readonly "--composer-background": "#ffffff";
-        readonly "--composer-border": "#1f5c2e0d";
-        readonly "--composer-placeholder": "#788c80";
-        readonly "--composer-action-icon": "#4e6e56";
-        readonly "--composer-chip-background": "#1f5c2e0d";
-        readonly "--composer-chip-label": "#244e30";
-        readonly "--composer-send-background": "#1f5c2e24";
-        readonly "--composer-send-icon": "#0d1f12";
-        readonly "--composer-border-focus": "#2f8f4e";
+        readonly "--composer-border": "#ffffff";
+        readonly "--composer-placeholder": "#ffffff";
+        readonly "--composer-action-icon": "#ffffff";
+        readonly "--composer-chip-background": "#ffffff";
+        readonly "--composer-chip-label": "#ffffff";
+        readonly "--composer-send-background": "#ffffff";
+        readonly "--composer-send-icon": "#ffffff";
         readonly "--dropdown-bg": "#ffffff";
         readonly "--dropdown-border": "#1f5c2e1a";
         readonly "--dropdown-option-bg-hover": "#1f5c2e1a";
@@ -693,8 +647,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#244e30";
         readonly "--dropdown-option-text-selected": "#0d1f12";
         readonly "--dropdown-icon": "#3e5e46";
-        readonly "--dropdown-border-focus": "#2f8f4e";
-        readonly "--input-border-focus": "#2f8f4e";
     };
     readonly "forest-dark": {
         readonly "--surface-page": "#0f1812";
@@ -704,9 +656,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#9bd6a60f";
         readonly "--surface-chip-subtle": "#9bd6a60d";
         readonly "--surface-chip-strong": "#9bd6a626";
+        readonly "--surface-skeleton": "#9bd6a61f";
+        readonly "--surface-skeleton-highlight": "#9bd6a63d";
         readonly "--surface-chip-hover": "#9bd6a638";
-        readonly "--surface-skeleton": "#ffffff1f";
-        readonly "--surface-skeleton-highlight": "#ffffff3d";
         readonly "--text-primary": "#e3f0e5";
         readonly "--text-secondary": "#b5d6bc";
         readonly "--text-tertiary": "#85a08e";
@@ -717,7 +669,6 @@ declare const themeVars: {
         readonly "--border-default": "#9bd6a61a";
         readonly "--border-strong": "#9bd6a640";
         readonly "--border-frame": "#ffffff";
-        readonly "--border-focus": "#7fcf95";
         readonly "--icon-primary": "#e3f0e5";
         readonly "--icon-secondary": "#95b89e";
         readonly "--tab-bg-active": "#0f1812";
@@ -731,15 +682,14 @@ declare const themeVars: {
         readonly "--tab-icon": "#95b89e";
         readonly "--tab-bar-bg": "#131c15";
         readonly "--tab-bar-border": "#9bd6a60d";
-        readonly "--composer-background": "#17201a";
-        readonly "--composer-border": "#9bd6a60d";
-        readonly "--composer-placeholder": "#5e7866";
-        readonly "--composer-action-icon": "#85a08e";
-        readonly "--composer-chip-background": "#9bd6a60f";
-        readonly "--composer-chip-label": "#b5d6bc";
-        readonly "--composer-send-background": "#9bd6a626";
-        readonly "--composer-send-icon": "#e3f0e5";
-        readonly "--composer-border-focus": "#7fcf95";
+        readonly "--composer-background": "#ffffff";
+        readonly "--composer-border": "#ffffff";
+        readonly "--composer-placeholder": "#ffffff";
+        readonly "--composer-action-icon": "#ffffff";
+        readonly "--composer-chip-background": "#ffffff";
+        readonly "--composer-chip-label": "#ffffff";
+        readonly "--composer-send-background": "#ffffff";
+        readonly "--composer-send-icon": "#ffffff";
         readonly "--dropdown-bg": "#17201a";
         readonly "--dropdown-border": "#9bd6a61a";
         readonly "--dropdown-option-bg-hover": "#9bd6a638";
@@ -747,8 +697,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#b5d6bc";
         readonly "--dropdown-option-text-selected": "#e3f0e5";
         readonly "--dropdown-icon": "#95b89e";
-        readonly "--dropdown-border-focus": "#7fcf95";
-        readonly "--input-border-focus": "#7fcf95";
     };
     readonly "sand-light": {
         readonly "--surface-page": "#faf6f0";
@@ -758,9 +706,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#5c3f1a0f";
         readonly "--surface-chip-subtle": "#5c3f1a0a";
         readonly "--surface-chip-strong": "#5c3f1a26";
+        readonly "--surface-skeleton": "#5c3f1a1f";
+        readonly "--surface-skeleton-highlight": "#5c3f1a3d";
         readonly "--surface-chip-hover": "#5c3f1a1a";
-        readonly "--surface-skeleton": "#0000001f";
-        readonly "--surface-skeleton-highlight": "#0000003d";
         readonly "--text-primary": "#2a1f15";
         readonly "--text-secondary": "#4a3a2a";
         readonly "--text-tertiary": "#7a6850";
@@ -771,7 +719,6 @@ declare const themeVars: {
         readonly "--border-default": "#5c3f1a1a";
         readonly "--border-strong": "#5c3f1a40";
         readonly "--border-frame": "#ffffff";
-        readonly "--border-focus": "#b07d3a";
         readonly "--icon-primary": "#2a1f15";
         readonly "--icon-secondary": "#6a584a";
         readonly "--tab-bg-active": "#faf6f0";
@@ -786,14 +733,13 @@ declare const themeVars: {
         readonly "--tab-bar-bg": "#faf6f0";
         readonly "--tab-bar-border": "#5c3f1a0d";
         readonly "--composer-background": "#ffffff";
-        readonly "--composer-border": "#5c3f1a0d";
-        readonly "--composer-placeholder": "#a89678";
-        readonly "--composer-action-icon": "#7a6850";
-        readonly "--composer-chip-background": "#5c3f1a0f";
-        readonly "--composer-chip-label": "#4a3a2a";
-        readonly "--composer-send-background": "#5c3f1a26";
-        readonly "--composer-send-icon": "#2a1f15";
-        readonly "--composer-border-focus": "#b07d3a";
+        readonly "--composer-border": "#ffffff";
+        readonly "--composer-placeholder": "#ffffff";
+        readonly "--composer-action-icon": "#ffffff";
+        readonly "--composer-chip-background": "#ffffff";
+        readonly "--composer-chip-label": "#ffffff";
+        readonly "--composer-send-background": "#ffffff";
+        readonly "--composer-send-icon": "#ffffff";
         readonly "--dropdown-bg": "#ffffff";
         readonly "--dropdown-border": "#5c3f1a1a";
         readonly "--dropdown-option-bg-hover": "#5c3f1a1a";
@@ -801,8 +747,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#4a3a2a";
         readonly "--dropdown-option-text-selected": "#2a1f15";
         readonly "--dropdown-icon": "#6a584a";
-        readonly "--dropdown-border-focus": "#b07d3a";
-        readonly "--input-border-focus": "#b07d3a";
     };
     readonly "sand-dark": {
         readonly "--surface-page": "#1a1612";
@@ -812,9 +756,9 @@ declare const themeVars: {
         readonly "--surface-chip": "#e8c8970f";
         readonly "--surface-chip-subtle": "#e8c8970d";
         readonly "--surface-chip-strong": "#e8c89726";
+        readonly "--surface-skeleton": "#e8c8971f";
+        readonly "--surface-skeleton-highlight": "#e8c8973d";
         readonly "--surface-chip-hover": "#e8c89738";
-        readonly "--surface-skeleton": "#ffffff1f";
-        readonly "--surface-skeleton-highlight": "#ffffff3d";
         readonly "--text-primary": "#f0e6d3";
         readonly "--text-secondary": "#d4c2a0";
         readonly "--text-tertiary": "#a89578";
@@ -825,7 +769,6 @@ declare const themeVars: {
         readonly "--border-default": "#e8c8971a";
         readonly "--border-strong": "#e8c89740";
         readonly "--border-frame": "#ffffff";
-        readonly "--border-focus": "#e0b87a";
         readonly "--icon-primary": "#f0e6d3";
         readonly "--icon-secondary": "#bda58a";
         readonly "--tab-bg-active": "#1a1612";
@@ -839,15 +782,14 @@ declare const themeVars: {
         readonly "--tab-icon": "#bda58a";
         readonly "--tab-bar-bg": "#1f1a14";
         readonly "--tab-bar-border": "#e8c8970d";
-        readonly "--composer-background": "#241e17";
-        readonly "--composer-border": "#e8c8970d";
-        readonly "--composer-placeholder": "#7d6f55";
-        readonly "--composer-action-icon": "#a89578";
-        readonly "--composer-chip-background": "#e8c8970f";
-        readonly "--composer-chip-label": "#d4c2a0";
-        readonly "--composer-send-background": "#e8c89726";
-        readonly "--composer-send-icon": "#f0e6d3";
-        readonly "--composer-border-focus": "#e0b87a";
+        readonly "--composer-background": "#ffffff";
+        readonly "--composer-border": "#ffffff";
+        readonly "--composer-placeholder": "#ffffff";
+        readonly "--composer-action-icon": "#ffffff";
+        readonly "--composer-chip-background": "#ffffff";
+        readonly "--composer-chip-label": "#ffffff";
+        readonly "--composer-send-background": "#ffffff";
+        readonly "--composer-send-icon": "#ffffff";
         readonly "--dropdown-bg": "#241e17";
         readonly "--dropdown-border": "#e8c8971a";
         readonly "--dropdown-option-bg-hover": "#e8c89738";
@@ -855,8 +797,6 @@ declare const themeVars: {
         readonly "--dropdown-option-text": "#d4c2a0";
         readonly "--dropdown-option-text-selected": "#f0e6d3";
         readonly "--dropdown-icon": "#bda58a";
-        readonly "--dropdown-border-focus": "#e0b87a";
-        readonly "--input-border-focus": "#e0b87a";
     };
 };
 type ThemeVar = keyof (typeof themeVars)[ThemeSlug];
