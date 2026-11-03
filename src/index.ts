@@ -9,21 +9,21 @@ export {
   themes,
   defaultTheme,
   themeVars,
-} from "./generated/tokens";
+} from "./generated/tokens.js";
 
 export type {
   Theme,
   ThemeSlug,
   ThemeVar,
   CssVar,
-} from "./generated/tokens";
+} from "./generated/tokens.js";
 
 import {
   themeVars,
   defaultTheme,
   type ThemeSlug,
   type CssVar,
-} from "./generated/tokens";
+} from "./generated/tokens.js";
 
 /** The data-attribute used on the root element to select a theme. */
 export const THEME_ATTRIBUTE = "data-theme";
