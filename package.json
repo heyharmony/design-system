@@ -1,6 +1,6 @@
 {
   "name": "@heyharmony/design-system",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Design tokens (themes, variables, colors) extracted from the Figma Harmony-2026 file, exported as CSS custom properties, typed TypeScript, and JSON.",
   "type": "module",
   "license": "MIT",
