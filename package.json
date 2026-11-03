@@ -34,7 +34,7 @@
     "extract": "node scripts/figma-export.js --help",
     "tokens": "node scripts/figma-to-tokens.mjs",
     "build:css": "node style-dictionary.config.mjs",
-    "build:ts": "tsup",
+    "build:ts": "tsup && tsc --emitDeclarationOnly",
     "build": "npm run tokens && npm run build:css && npm run build:ts",
     "clean": "rm -rf dist build src/generated",
     "prepare": "npm run build"

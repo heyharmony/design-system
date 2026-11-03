@@ -132,7 +132,7 @@ Figma (Harmony-2026)
        └─ tokens/figma.raw.json       # committed snapshot (colors, modes, aliases)
             └─ scripts/figma-to-tokens.mjs   # -> build/tokens/*.json (W3C/Style Dictionary)
                  └─ style-dictionary.config.mjs  # -> dist/css/tokens.css, dist/tokens.json, src/generated/tokens.ts
-                      └─ tsup                     # -> dist/index.{js,cjs,d.ts}
+                      └─ tsup + tsc               # -> dist/index.{js,cjs}, dist/**/*.d.ts
 ```
 
 ### Build
@@ -147,7 +147,7 @@ Individual steps:
 | ------------------ | ------------------------------------------------------------- |
 | `npm run tokens`   | `build/tokens/*.json` + `build/meta.json`                     |
 | `npm run build:css`| `dist/css/tokens.css`, `dist/tokens.json`, generated TS data  |
-| `npm run build:ts` | `dist/index.{js,cjs,d.ts}`                                     |
+| `npm run build:ts` | `dist/index.{js,cjs}` (tsup), `dist/**/*.d.ts` (tsc)           |
 
 ### Refreshing from Figma
 
