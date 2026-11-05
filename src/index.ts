@@ -1,5 +1,5 @@
 /**
- * @heyharmony/design-system — design tokens from the Figma Harmony-2026 file.
+ * @heyharmony/design-system — design tokens from Figma (sources in tokens/sources.json).
  *
  * - Import the CSS once to register the custom properties:
  *     import "@heyharmony/design-system/css";

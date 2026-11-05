@@ -1,9 +1,23 @@
 /**
- * Transform: Figma raw export -> Style Dictionary (W3C) token files.
+ * Transform: Figma raw exports -> Style Dictionary (W3C) token files.
  *
- * Reads tokens/figma.raw.json and writes, into build/tokens/:
- *   - theme.<slug>.json     (one file per Theme mode, with aliases as references)
- * plus build/meta.json describing the themes for the CSS/TS build steps.
+ * Reads every source listed in tokens/sources.json (highest priority first),
+ * merges their variables and writes, into build/:
+ *   - tokens/theme.<slug>.json  (one file per Theme mode, aliases as references)
+ *   - meta.json                 (themes + source description for the CSS/TS build)
+ *   - migration-report.json     (which source each token came from)
+ *
+ * Merge rules:
+ *   - A variable is identified by collection name + variable name, never by
+ *     Figma id, because ids differ between files.
+ *   - The first source that defines a variable wins. Lower-priority (legacy)
+ *     sources only contribute variables the higher-priority ones lack.
+ *   - Aliases are resolved by name against the merged set, so a legacy alias
+ *     to `text/primary` points at the winning `text/primary`.
+ *   - Theme modes are matched by name. A mode missing from the winning source
+ *     falls back to the next source that defines that variable and mode.
+ *   - Non-Theme collections (e.g. Brand, Primitives) must have a single mode;
+ *     they are emitted under their collection slug in every theme file.
  */
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -11,8 +25,11 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
-const RAW = resolve(ROOT, "tokens/figma.raw.json");
-const OUT_TOKENS = resolve(ROOT, "build/tokens");
+const TOKENS_DIR = resolve(ROOT, "tokens");
+const BUILD = resolve(ROOT, "build");
+const OUT_TOKENS = resolve(BUILD, "tokens");
+
+const THEME_COLLECTION = "theme";
 
 /** Figma resolvedType -> W3C `$type`. */
 const TYPE_MAP = {
@@ -31,6 +48,10 @@ function slugify(label) {
     .replace(/^-+|-+$/g, "");
 }
 
+function isThemeCollection(collectionName) {
+  return collectionName.toLowerCase() === THEME_COLLECTION;
+}
+
 /**
  * Path prefix contributed by a collection. The "Theme" collection is the
  * semantic default and gets no prefix (so `text/primary` -> `--text-primary`),
@@ -38,13 +59,21 @@ function slugify(label) {
  * under its slug.
  */
 function collectionPrefix(collectionName) {
-  if (collectionName.toLowerCase() === "theme") return [];
+  if (isThemeCollection(collectionName)) return [];
   return [slugify(collectionName)];
 }
 
 /** "surface/page" -> ["surface", "page"] (each segment slugified). */
 function nameToPath(name) {
   return name.split("/").map((seg) => slugify(seg));
+}
+
+function tokenPath(collectionName, name) {
+  return [...collectionPrefix(collectionName), ...nameToPath(name)];
+}
+
+function variableKey(collectionName, name) {
+  return `${collectionName.toLowerCase()}::${name}`;
 }
 
 function setNested(obj, path, value) {
@@ -57,83 +86,288 @@ function setNested(obj, path, value) {
   cur[path[path.length - 1]] = value;
 }
 
-function main() {
-  const raw = JSON.parse(readFileSync(RAW, "utf8"));
+function isAlias(value) {
+  return value !== null && typeof value === "object" && "alias" in value;
+}
 
-  const collectionsById = new Map();
-  for (const c of raw.collections) collectionsById.set(c.id, c);
+/** Comparable string form of a normalized value, for the migration report. */
+function describe(value) {
+  if (value === undefined) return "(missing)";
+  if (isAlias(value)) {
+    return `{${value.alias.collection}/${value.alias.name}}`;
+  }
+  return String(value);
+}
 
-  // name -> path lookup per collection, for resolving aliases to references.
-  const aliasPath = new Map(); // key: `${collectionId}::${name}` -> dotted path
+/**
+ * Load one snapshot and normalize it into collections keyed by name and
+ * variables whose values are keyed by mode name, with aliases pointing at
+ * collection name + variable name.
+ */
+function loadSource(source) {
+  const raw = JSON.parse(
+    readFileSync(resolve(TOKENS_DIR, source.snapshot), "utf8")
+  );
+  const collectionsById = new Map(raw.collections.map((c) => [c.id, c]));
+
+  const collections = new Map();
+  for (const c of raw.collections) {
+    if (c.remote) continue;
+    if (collections.has(c.name.toLowerCase())) {
+      throw new Error(
+        `[${source.id}] duplicate local collection name "${c.name}"`
+      );
+    }
+    collections.set(c.name.toLowerCase(), {
+      name: c.name,
+      modes: c.modes.map((m) => m.name),
+      defaultMode: c.modes.find((m) => m.modeId === c.defaultModeId).name,
+    });
+  }
+
+  function normalizeValue(value, variableName) {
+    if (value === null || typeof value !== "object" || !("a" in value)) {
+      return value;
+    }
+    const target = collectionsById.get(value.ac);
+    if (!target || !target.name) {
+      throw new Error(
+        `[${source.id}] ${variableName}: alias target "${value.a}" is in an unknown collection (${value.ac}). Re-export the snapshot with the current scripts/figma-export.js.`
+      );
+    }
+    return { alias: { collection: target.name, name: value.a } };
+  }
+
+  const variables = [];
   for (const v of raw.variables) {
     const col = collectionsById.get(v.c);
-    const path = [...collectionPrefix(col.name), ...nameToPath(v.name)];
-    aliasPath.set(`${v.c}::${v.name}`, path.join("."));
-  }
-
-  /** Resolve a single variable value (for one mode) into a W3C `$value`. */
-  function toValue(val) {
-    if (val && typeof val === "object" && "a" in val) {
-      const key = `${val.ac}::${val.a}`;
-      const path = aliasPath.get(key);
-      if (!path) {
-        throw new Error(`Unresolved alias target: ${val.a} in ${val.ac}`);
-      }
-      return `{${path}}`;
+    const values = {};
+    for (const mode of col.modes) {
+      const value = "*" in v.values ? v.values["*"] : v.values[mode.modeId];
+      if (value === undefined) continue;
+      values[mode.name] = normalizeValue(value, v.name);
     }
-    return val;
+    variables.push({
+      key: variableKey(col.name, v.name),
+      collection: col.name,
+      name: v.name,
+      type: v.type,
+      values,
+    });
   }
 
-  /** Get the value of a variable for a given modeId (handles "*"). */
-  function valueForMode(variable, modeId) {
-    if ("*" in variable.values) return variable.values["*"];
-    return variable.values[modeId];
+  return { ...source, collections, variables };
+}
+
+/** Merge sources (highest priority first) into one variable set. */
+function mergeSources(sources) {
+  // Collection definitions come from the highest-priority source defining them.
+  const collections = new Map();
+  for (const src of sources) {
+    for (const [key, col] of src.collections) {
+      if (!collections.has(key)) collections.set(key, { ...col, source: src.id });
+    }
   }
 
-  // Reset output dir.
+  const merged = new Map();
+  for (const src of sources) {
+    for (const v of src.variables) {
+      const existing = merged.get(v.key);
+      if (!existing) {
+        merged.set(v.key, { ...v, source: src.id, candidates: [{ source: src.id, values: v.values }] });
+        continue;
+      }
+      if (existing.type !== v.type) {
+        throw new Error(
+          `${v.collection}/${v.name} is ${existing.type} in "${existing.source}" but ${v.type} in "${src.id}"`
+        );
+      }
+      existing.candidates.push({ source: src.id, values: v.values });
+    }
+  }
+
+  // Fill each variable's modes from its candidates in priority order.
+  for (const v of merged.values()) {
+    const col = collections.get(v.collection.toLowerCase());
+    v.values = {};
+    v.valueSources = {};
+    for (const mode of col.modes) {
+      const hit = v.candidates.find((c) => mode in c.values);
+      if (!hit) {
+        throw new Error(
+          `${v.collection}/${v.name} has no value for mode "${mode}" in any source`
+        );
+      }
+      v.values[mode] = hit.values[mode];
+      v.valueSources[mode] = hit.source;
+    }
+  }
+
+  return { collections, variables: merged };
+}
+
+function buildReport(sources, merged) {
+  const contributions = Object.fromEntries(sources.map((s) => [s.id, []]));
+  const fallbacks = [];
+  const overrides = [];
+
+  for (const v of merged.variables.values()) {
+    const id = `${v.collection}/${v.name}`;
+    contributions[v.source].push(id);
+
+    const borrowed = Object.entries(v.valueSources).filter(
+      ([, src]) => src !== v.source
+    );
+    if (borrowed.length) {
+      fallbacks.push({
+        token: id,
+        modes: Object.fromEntries(borrowed),
+      });
+    }
+
+    for (const shadowed of v.candidates.slice(1)) {
+      const diff = {};
+      for (const [mode, value] of Object.entries(shadowed.values)) {
+        if (describe(value) !== describe(v.values[mode])) {
+          diff[mode] = { [shadowed.source]: describe(value), used: describe(v.values[mode]) };
+        }
+      }
+      if (Object.keys(diff).length) {
+        overrides.push({ token: id, winner: v.source, shadowed: shadowed.source, modes: diff });
+      }
+    }
+  }
+
+  for (const list of Object.values(contributions)) list.sort();
+  return {
+    sources: sources.map(({ id, name, fileKey, legacy }) => ({
+      id,
+      name,
+      fileKey,
+      legacy: Boolean(legacy),
+      tokens: contributions[id].length,
+    })),
+    pendingMigration: sources
+      .filter((s) => s.legacy)
+      .flatMap((s) => contributions[s.id].map((token) => ({ token, source: s.id }))),
+    fallbacks,
+    overrides,
+  };
+}
+
+function printReport(report) {
+  console.log("Token sources (highest priority first):");
+  for (const s of report.sources) {
+    console.log(
+      `  ${s.legacy ? "legacy " : "primary"}  ${s.name} (${s.fileKey}): ${s.tokens} tokens`
+    );
+  }
+  if (report.pendingMigration.length) {
+    console.log(
+      `\n${report.pendingMigration.length} tokens still come only from a legacy source:`
+    );
+    for (const p of report.pendingMigration) console.log(`  ${p.token}  <- ${p.source}`);
+  }
+  if (report.fallbacks.length) {
+    console.log(`\n${report.fallbacks.length} tokens borrow some modes from a lower-priority source:`);
+    for (const f of report.fallbacks) {
+      console.log(`  ${f.token}: ${Object.keys(f.modes).join(", ")}`);
+    }
+  }
+  if (report.overrides.length) {
+    console.log(`\n${report.overrides.length} tokens differ from a lower-priority source (higher priority wins):`);
+    for (const o of report.overrides) {
+      const modes = Object.entries(o.modes)
+        .map(([mode, d]) => `${mode} ${d[o.shadowed]} -> ${d.used}`)
+        .join("; ");
+      console.log(`  ${o.token}: ${modes}`);
+    }
+  }
+  console.log("\nFull report: build/migration-report.json");
+}
+
+function main() {
+  const config = JSON.parse(
+    readFileSync(resolve(TOKENS_DIR, "sources.json"), "utf8")
+  );
+  if (!config.sources?.length) throw new Error("tokens/sources.json lists no sources");
+  const sources = config.sources.map(loadSource);
+  const merged = mergeSources(sources);
+
+  const themeCol = merged.collections.get(THEME_COLLECTION);
+  if (!themeCol) throw new Error('No source defines a "Theme" collection');
+
+  for (const col of merged.collections.values()) {
+    if (!isThemeCollection(col.name) && col.modes.length !== 1) {
+      throw new Error(
+        `Collection "${col.name}" has ${col.modes.length} modes; only the Theme collection may have more than one`
+      );
+    }
+  }
+
+  // Guard against two variables collapsing onto the same CSS custom property.
+  const pathOwners = new Map();
+  for (const v of merged.variables.values()) {
+    const cssName = tokenPath(v.collection, v.name).join("-");
+    const owner = pathOwners.get(cssName);
+    if (owner) {
+      throw new Error(`--${cssName} is produced by both ${owner} and ${v.collection}/${v.name}`);
+    }
+    pathOwners.set(cssName, `${v.collection}/${v.name}`);
+  }
+
+  function toValue(value, from) {
+    if (!isAlias(value)) return value;
+    const { collection, name } = value.alias;
+    if (!merged.variables.has(variableKey(collection, name))) {
+      throw new Error(
+        `${from}: alias target ${collection}/${name} is not defined by any source`
+      );
+    }
+    return `{${tokenPath(collection, name).join(".")}}`;
+  }
+
   rmSync(OUT_TOKENS, { recursive: true, force: true });
   mkdirSync(OUT_TOKENS, { recursive: true });
 
-  // --- Theme collection: one file per mode ---------------------------------
-  const themeCol = raw.collections.find((c) => c.name.toLowerCase() === "theme");
-  const themeVars = raw.variables.filter((x) => x.c === themeCol.id);
+  const themes = themeCol.modes.map((mode) => ({ name: mode, slug: slugify(mode) }));
 
-  const themes = themeCol.modes.map((m) => ({
-    name: m.name,
-    slug: slugify(m.name),
-    modeId: m.modeId,
-  }));
-
-  for (const mode of themes) {
+  for (const theme of themes) {
     const tokens = {};
-    for (const v of themeVars) {
-      const path = [...collectionPrefix(themeCol.name), ...nameToPath(v.name)];
-      setNested(tokens, path, {
+    for (const v of merged.variables.values()) {
+      const col = merged.collections.get(v.collection.toLowerCase());
+      const mode = isThemeCollection(v.collection) ? theme.name : col.defaultMode;
+      setNested(tokens, tokenPath(v.collection, v.name), {
         $type: TYPE_MAP[v.type] ?? "string",
-        $value: toValue(valueForMode(v, mode.modeId)),
+        $value: toValue(v.values[mode], `${v.collection}/${v.name} (${mode})`),
       });
     }
     writeFileSync(
-      resolve(OUT_TOKENS, `theme.${mode.slug}.json`),
+      resolve(OUT_TOKENS, `theme.${theme.slug}.json`),
       JSON.stringify(tokens, null, 2)
     );
   }
 
-  // --- Build metadata -------------------------------------------------------
+  const primary = sources[0];
+  const legacy = sources.filter((s) => s.legacy);
   const meta = {
-    source: raw.$meta?.source ?? "Figma",
-    defaultTheme: slugify(
-      themeCol.modes.find((m) => m.modeId === themeCol.defaultModeId).name
-    ),
+    source:
+      `Figma - ${primary.name}` +
+      (legacy.length ? ` (+ legacy ${legacy.map((s) => s.name).join(", ")})` : ""),
+    defaultTheme: slugify(themeCol.defaultMode),
     themes,
   };
-  mkdirSync(resolve(ROOT, "build"), { recursive: true });
+  mkdirSync(BUILD, { recursive: true });
+  writeFileSync(resolve(BUILD, "meta.json"), JSON.stringify(meta, null, 2));
+
+  const report = buildReport(sources, merged);
   writeFileSync(
-    resolve(ROOT, "build/meta.json"),
-    JSON.stringify(meta, null, 2)
+    resolve(BUILD, "migration-report.json"),
+    JSON.stringify(report, null, 2)
   );
 
-  console.log(`Wrote ${themes.length} theme files to build/tokens/`);
+  console.log(`Wrote ${themes.length} theme files to build/tokens/\n`);
+  printReport(report);
 }
 
 main();

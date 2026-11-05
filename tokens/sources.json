@@ -1,0 +1,18 @@
+{
+  "$comment": "Figma sources merged into one token set, highest priority first. A token defined in several sources takes its value from the first one. Sources marked legacy only fill gaps; once a legacy source contributes no tokens (see the migration report printed by `npm run tokens`), remove it from this list and delete its snapshot.",
+  "sources": [
+    {
+      "id": "application-main",
+      "name": "Application - Main",
+      "fileKey": "3ydPIEBYQf60Fgm1TcjTIS",
+      "snapshot": "application-main.raw.json"
+    },
+    {
+      "id": "harmony-2026",
+      "name": "Harmony-2026",
+      "fileKey": "AA8bwpQKSB21xbeNgDR8wu",
+      "snapshot": "harmony-2026.raw.json",
+      "legacy": true
+    }
+  ]
+}
