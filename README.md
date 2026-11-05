@@ -1,7 +1,9 @@
 # @heyharmony/design-system
 
-Design tokens (themes, variables, colors) extracted from the Figma
-**Harmony-2026** file and published as:
+Design tokens (themes, variables, colors) extracted from Figma.
+The primary source is the **Application - Main** file in the Harmony Global Inc. organization.
+The legacy **Harmony-2026** file still fills in tokens that have not been migrated yet (see [Sources and migration](#sources-and-migration)).
+Outputs:
 
 - **CSS custom properties** (`dist/css/tokens.css`) — `:root` defaults plus one
   `[data-theme="..."]` block per theme.
@@ -127,10 +129,10 @@ plan, so this package instead snapshots the variables through the Figma plugin
 API and transforms that snapshot locally.
 
 ```
-Figma (Harmony-2026)
+Figma files listed in tokens/sources.json
   └─ scripts/figma-export.js          # Plugin API snippet, run via the Figma MCP
-       └─ tokens/figma.raw.json       # committed snapshot (colors, modes, aliases)
-            └─ scripts/figma-to-tokens.mjs   # -> build/tokens/*.json (W3C/Style Dictionary)
+       └─ tokens/<source>.raw.json    # one committed snapshot per source
+            └─ scripts/figma-to-tokens.mjs   # merge by priority -> build/tokens/*.json + build/migration-report.json
                  └─ style-dictionary.config.mjs  # -> dist/css/tokens.css, dist/tokens.json, src/generated/tokens.ts
                       └─ tsup + tsc               # -> dist/index.{js,cjs}, dist/**/*.d.ts
 ```
@@ -145,24 +147,49 @@ Individual steps:
 
 | Script             | Output                                                        |
 | ------------------ | ------------------------------------------------------------- |
-| `npm run tokens`   | `build/tokens/*.json` + `build/meta.json`                     |
+| `npm run tokens`   | `build/tokens/*.json`, `build/meta.json`, `build/migration-report.json` |
 | `npm run build:css`| `dist/css/tokens.css`, `dist/tokens.json`, generated TS data  |
 | `npm run build:ts` | `dist/index.{js,cjs}` (tsup), `dist/**/*.d.ts` (tsc)           |
 
+### Sources and migration
+
+[`tokens/sources.json`](tokens/sources.json) lists the Figma files the tokens come from, highest priority first:
+
+| Priority | Source | fileKey | Snapshot |
+| -------- | ------ | ------- | -------- |
+| 1 | Application - Main (Harmony Global Inc.) | `3ydPIEBYQf60Fgm1TcjTIS` | `tokens/application-main.raw.json` |
+| 2, legacy | Harmony-2026 | `AA8bwpQKSB21xbeNgDR8wu` | `tokens/harmony-2026.raw.json` |
+
+`npm run tokens` merges the snapshots into one token set:
+
+- Variables are matched by collection name + variable name, not by Figma id.
+- The first source that defines a variable wins; a legacy source only contributes variables the sources above it lack.
+- Aliases resolve by name against the merged set, so a legacy alias such as `tab/bar-bg -> surface/canvas` picks up the new file's `surface/canvas`.
+- Aliases to a linked library (exported as collections with `remote: true`) resolve the same way, by collection name + variable name.
+- Theme modes are matched by name; a mode missing from the winning source falls back to the next source that has it.
+- Collections other than `Theme` (for example `Brand`, `Primitives`) must have a single mode and are emitted with their collection as a prefix, e.g. `--primitives-orange-500`.
+
+The build prints a migration report and writes it to `build/migration-report.json`:
+
+- `pendingMigration`: tokens that still come only from a legacy source. These need to be created in the primary file.
+- `fallbacks`: tokens whose winning source lacks some modes, borrowed from a lower-priority source.
+- `overrides`: tokens defined in several sources with different values, showing which value is used.
+
+The build fails, rather than silently dropping a value, when an alias target exists in no source, when two variables map to the same CSS custom property, or when a variable changes type between sources.
+
+To finish the migration, create every `pendingMigration` token in the primary file, re-export it and rebuild.
+When the legacy source contributes 0 tokens, remove it from `tokens/sources.json` and delete its snapshot.
+Removing it earlier fails the build if a primary token still aliases a token that only the legacy source defines.
+
 ### Refreshing from Figma
 
-`tokens/figma.raw.json` is a committed snapshot. To update it after the Figma
-variables change, re-run the exporter snippet in
-[`scripts/figma-export.js`](scripts/figma-export.js) against the Harmony-2026
-file (fileKey `AA8bwpQKSB21xbeNgDR8wu`) via the Figma MCP `use_figma` tool, save
-the returned JSON over `tokens/figma.raw.json`, then run `npm run build`.
+Each snapshot is committed.
+To update one after its Figma variables change, run the exporter snippet in [`scripts/figma-export.js`](scripts/figma-export.js) via the Figma MCP `use_figma` tool against that source's `fileKey`.
+Save the returned JSON over the source's snapshot file, keep its `$meta` block, then run `npm run build` and review the migration report.
 
-The focus border tokens (`border/focus` + `*/border-focus`) currently live only
-in `tokens/figma.raw.json` — they could not be written to Figma because the
-Theme collection has 15 modes and the editing account's plan caps mode edits at
-10. Until they are re-created in Figma (from an account whose plan allows editing
-all 15 modes), a re-export will drop them and they must be re-added to the
-snapshot.
+The focus border tokens (`border/focus` + `*/border-focus`) exist only in the legacy snapshot.
+They could not be written to Harmony-2026 because the editing account's plan capped mode edits at 10, while the Theme collection has 15 modes.
+They should now be created in the primary file, which belongs to an organization plan.
 
 ## Notes
 
