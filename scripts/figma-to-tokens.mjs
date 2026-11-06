@@ -39,6 +39,43 @@ const TYPE_MAP = {
   BOOLEAN: "boolean",
 };
 
+/**
+ * FLOAT scopes whose values are lengths in Figma px. A FLOAT variable is
+ * emitted as a CSS length (`4px`) only when every scope it allows is a length;
+ * anything else (font weight, opacity, ALL_SCOPES) stays a unitless number, so
+ * a value is never given a unit it does not have.
+ */
+const LENGTH_SCOPES = new Set([
+  "CORNER_RADIUS",
+  "WIDTH_HEIGHT",
+  "GAP",
+  "STROKE_FLOAT",
+  "EFFECT_FLOAT",
+  "FONT_SIZE",
+  "LINE_HEIGHT",
+  "LETTER_SPACING",
+  "PARAGRAPH_SPACING",
+  "PARAGRAPH_INDENT",
+]);
+
+function isLength(v) {
+  return (
+    v.type === "FLOAT" &&
+    v.scopes.length > 0 &&
+    v.scopes.every((scope) => LENGTH_SCOPES.has(scope))
+  );
+}
+
+/**
+ * Figma stores FLOATs as 32-bit floats (1.2 comes back as 1.2000000476837158),
+ * so round before printing. Values are emitted as strings because every CSS
+ * custom property and every typed `themeVars` entry is a string.
+ */
+function formatFloat(value, length) {
+  const n = String(Math.round(value * 10000) / 10000);
+  return length && n !== "0" ? `${n}px` : n;
+}
+
 /** Lowercase, hyphenate a label (e.g. "Ocean Light" -> "ocean-light"). */
 function slugify(label) {
   return label
@@ -152,6 +189,7 @@ function loadSource(source) {
       collection: col.name,
       name: v.name,
       type: v.type,
+      scopes: v.scopes ?? [],
       values,
     });
   }
@@ -316,8 +354,10 @@ function main() {
     pathOwners.set(cssName, `${v.collection}/${v.name}`);
   }
 
-  function toValue(value, from) {
-    if (!isAlias(value)) return value;
+  function toValue(v, value, from) {
+    if (!isAlias(value)) {
+      return v.type === "FLOAT" ? formatFloat(value, isLength(v)) : value;
+    }
     const { collection, name } = value.alias;
     if (!merged.variables.has(variableKey(collection, name))) {
       throw new Error(
@@ -338,8 +378,8 @@ function main() {
       const col = merged.collections.get(v.collection.toLowerCase());
       const mode = isThemeCollection(v.collection) ? theme.name : col.defaultMode;
       setNested(tokens, tokenPath(v.collection, v.name), {
-        $type: TYPE_MAP[v.type] ?? "string",
-        $value: toValue(v.values[mode], `${v.collection}/${v.name} (${mode})`),
+        $type: isLength(v) ? "dimension" : TYPE_MAP[v.type] ?? "string",
+        $value: toValue(v, v.values[mode], `${v.collection}/${v.name} (${mode})`),
       });
     }
     writeFileSync(

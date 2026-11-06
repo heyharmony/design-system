@@ -167,7 +167,10 @@ Individual steps:
 - Aliases resolve by name against the merged set, so a legacy alias such as `tab/bar-bg -> surface/canvas` picks up the new file's `surface/canvas`.
 - Aliases to a linked library (exported as collections with `remote: true`) resolve the same way, by collection name + variable name.
 - Theme modes are matched by name; a mode missing from the winning source falls back to the next source that has it.
-- Collections other than `Theme` (for example `Brand`, `Primitives`) must have a single mode and are emitted with their collection as a prefix, e.g. `--primitives-orange-500`.
+- Collections other than `Theme` (for example `Foundation`, `Primitives`) must have a single mode and are emitted with their collection as a prefix, e.g. `--primitives-orange-500`.
+- Number variables are emitted as CSS lengths when every scope they allow in Figma is a length (corner radius, gap, stroke, font size, line height, ...), e.g. `--foundation-spacing-spacing-4: 4px`.
+  Any other number (font weight, opacity, or a variable scoped to everything) stays unitless, e.g. `--foundation-typography-font-weight-medium: 500`.
+  Values are rounded to 4 decimals, because Figma stores 1.2 as 1.2000000476837158.
 
 The build prints a migration report and writes it to `build/migration-report.json`:
 
