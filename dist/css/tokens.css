@@ -398,7 +398,7 @@
   --border-default: #ffffff14;
   --border-subtle: #ffffff0a;
   --border-frame: #3c3c3c;
-  --border-window-border-focus: #ffffff3d;
+  --border-window-border-focus: #ffffff1a;
   --border-window-border-unfocus: #ffffff3d;
   --border-focus: #5c9dff;
   --text-muted: #ffffff33;
@@ -788,7 +788,7 @@
   --border-default: #ffffff1f;
   --border-subtle: #ffffff14;
   --border-frame: #000000;
-  --border-window-border-focus: #ffffff24;
+  --border-window-border-focus: #ffffff0f;
   --border-window-border-unfocus: #ffffff05;
   --border-focus: #5c9dff;
   --text-muted: #ffffff3d;

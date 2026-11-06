@@ -247,7 +247,7 @@ export declare const themeVars: {
         readonly "--border-default": "#ffffff14";
         readonly "--border-subtle": "#ffffff0a";
         readonly "--border-frame": "#3c3c3c";
-        readonly "--border-window-border-focus": "#ffffff3d";
+        readonly "--border-window-border-focus": "#ffffff1a";
         readonly "--border-window-border-unfocus": "#ffffff3d";
         readonly "--border-focus": "#5c9dff";
         readonly "--composer-chip-background": "#ffffff14";
@@ -635,7 +635,7 @@ export declare const themeVars: {
         readonly "--border-default": "#ffffff1f";
         readonly "--border-subtle": "#ffffff14";
         readonly "--border-frame": "#000000";
-        readonly "--border-window-border-focus": "#ffffff24";
+        readonly "--border-window-border-focus": "#ffffff0f";
         readonly "--border-window-border-unfocus": "#ffffff05";
         readonly "--border-focus": "#5c9dff";
         readonly "--composer-chip-background": "#ffffff14";
